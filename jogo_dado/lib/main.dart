@@ -179,8 +179,8 @@ class _EstadoTelaJogoDeDados extends State<TelaJogodeDados> {
     //eu uso sublinhado _ para indicar que a função é privada, só pode ser usada dentro dessa classe
     //comando crucial p/ forçar a atualização da tela
     setState(() {
-      lancamentosJogador1 = List.generate(3, () => _aleatorio.nextInt(6) + 1);
-      lancamentosJogador2 = List.generate(3, () => _aleatorio.nextInt(6) + 1);
+      _lancamentosJogador1 = List.generate(3, (_) => _aleatorio.nextInt(6) + 1);
+      _lancamentosJogador2 = List.generate(3, (_) => _aleatorio.nextInt(6) + 1);
       final pontuacao1 = _calcularPontuacao(_lancamentosJogador1);
       final pontuacao2 = _calcularPontuacao(_lancamentosJogador2);
 
@@ -209,7 +209,7 @@ class _EstadoTelaJogoDeDados extends State<TelaJogodeDados> {
           Row(
             mainAxisAlignment: MainAxisAlignment
                 .center, //é o justify-container: center; do css
-            children: lancamentos.map((valor) {
+            children: _lancamentos.map((valor) {
               //map transforma o numero do dado em um widget e imagem
               return Padding(
                 padding: const EdgeInsets.all(4.0),
