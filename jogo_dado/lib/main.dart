@@ -209,22 +209,51 @@ class _EstadoTelaJogoDeDados extends State<TelaJogodeDados> {
           Row(
             mainAxisAlignment: MainAxisAlignment
                 .center, //é o justify-container: center; do css
-            children: _lancamentos.map((valor) {
+            children: lancamentos.map((valor) {
               //map transforma o numero do dado em um widget e imagem
               return Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: Image.network(
-                  imagensDados[valor]!, //pega a url do mapa usando o valor do dado
+                imagensDados[valor]!, //pega a url do mapa usando o valor do dado
                   width: 50,
                   height: 50,
                   errorBuilder: (context, erro, stackTrace) => 
                   const Icon(Icons.error, size: 40), //mostra um ícone de erro se a imagem não carregar
                 ),
               );
-            }),
+            }).toList(), //converte o resultado do map em uma lista de widgets/organiza a lista dos dados
           ),
         ],
       ),
     );
+  }
+  @override
+  Widget build(BuildContext context){
+  return Scaffold( //Scaffold é tipo o body
+  appBar: AppBar(title: const Text('Jogo de Dados')),
+  body: Column(
+  children: [
+  Row(
+  children: [
+  _construirColunaJogador(widget.nomeJogador1, _lancamentosJogador1),
+  _construirColunaJogador(widget.nomeJogador2, _lancamentosJogador2),//
+  ],  
+  ),  
+  const SizedBox(height: 20),
+  Text(
+  _mensagemResultado,
+  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+  textAlign: TextAlign.center,  
+  ),
+  const Spacer(), //empurra o botão para a parte debaixo da tela/ o br
+  
+  ElevatedButton(
+  onPressed: _lancarDados,
+  style: ElevatedButton.styleFrom(minimumSize: const Size(double.infinity, 50)),
+  child: const Text('Jogar Dados'),
+  )
+  ],  
+  ) 
+  );  
   }
 }
